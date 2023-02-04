@@ -172,7 +172,7 @@ def login(username, password, phoneNo):
               }
             }
           ]
-        }
+        })
     
     csrfToken = genCsrfToken()
     del REQUEST_HEADERS['x-guest-token']
