@@ -2,7 +2,7 @@ name: updatechecker
 on:
   push:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '* */1 * * *'
 
 defaults:
   run:
