@@ -20,9 +20,11 @@ REQUEST_HEADERS = {"User-Agent":"Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:102
     
 def login(username, password, phoneNo):
     global REQUEST_HEADERS
-    s.get("https://twitter.com/")
+    r = s.get("https://twitter.com/")
+    print(r.status_code)
     
     r = s.post("https://api.twitter.com/1.1/guest/activate.json", headers=REQUEST_HEADERS, json={})
+    print(r.status_code)
     
     guestToken = r.json()['guest_token']
     s.cookies.set("gt", guestToken, domain=".twitter.com")
@@ -83,6 +85,7 @@ def login(username, password, phoneNo):
         })
         
     flowToken = r.json()["flow_token"]
+    print(r.status_code)
     
     s.post("https://api.twitter.com/1.1/branch/init.json", headers=REQUEST_HEADERS, json={})
     
@@ -103,6 +106,7 @@ def login(username, password, phoneNo):
       ]
     })
     flowToken = r.json()["flow_token"]
+    print(r.status_code)
     
     # step 2
     
@@ -129,6 +133,8 @@ def login(username, password, phoneNo):
     })
     flowToken = r.json()["flow_token"]
     
+    print(r.status_code)
+    
     # step 3
     
     r = s.post("https://api.twitter.com/1.1/onboarding/task.json", headers=REQUEST_HEADERS, json={
@@ -144,6 +150,7 @@ def login(username, password, phoneNo):
       ]
     })
     flowToken = r.json()["flow_token"]
+    print(r.status_code)
     
     # step 4
     r = s.post("https://api.twitter.com/1.1/onboarding/task.json", headers=REQUEST_HEADERS, json={
@@ -158,6 +165,7 @@ def login(username, password, phoneNo):
       ]
     })
     flowToken = r.json()["flow_token"]
+    print(r.status_code)
     
     # check if im being asked for my phone number
     if r.content.find(b"telephone") != -1:
@@ -173,6 +181,7 @@ def login(username, password, phoneNo):
             }
           ]
         })
+        print(r.status_code)
     
     csrfToken = genCsrfToken()
     del REQUEST_HEADERS['x-guest-token']
@@ -184,7 +193,8 @@ def login(username, password, phoneNo):
     
     s.cookies.set("ct0", csrfToken, domain=".twitter.com")    
     r = s.post("https://api.twitter.com/1.1/jot/client_event.json?keepalive=false", headers=REQUEST_HEADERS, data="debug=true&log=%5B%7B%22_category_%22%3A%22client_event%22%2C%22format_version%22%3A2%2C%22triggered_on%22%3A1675493918049%2C%22items%22%3A%5B%5D%2C%22event_namespace%22%3A%7B%22page%22%3A%22compose%22%2C%22section%22%3A%22composition%22%2C%22element%22%3A%22send_tweet%22%2C%22action%22%3A%22click%22%2C%22client%22%3A%22m5%22%7D%2C%22client_event_sequence_start_timestamp%22%3A1675493550691%2C%22client_event_sequence_number%22%3A102%2C%22client_app_id%22%3A%223033300%22%7D%5D")
-
+    print(r.status_code)
+    
     csrfToken = s.cookies.get_dict()["ct0"]
     REQUEST_HEADERS["x-csrf-token"] = csrfToken
     
@@ -227,4 +237,4 @@ def tweet(msg):
       },
       "queryId": gqlEndpoint
     })
-    
+    print(r.status_code)
