@@ -1,0 +1,33 @@
+name: updatechecker
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+
+defaults:
+  run:
+    working-directory: ./
+
+jobs:
+  run:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      
+    - name: check-update
+      continue-on-error: false
+      env: 
+        TWITTER_USERNAME: ${{ secrets.TWITTER_USERNAME }}
+        TWITTER_PASSWORD: ${{ secrets.TWITTER_PASSWORD }}
+      run: |
+        pip3 install requests
+        pip3 install lxml
+        
+        python3 ps5_updatecheck.py
+        
+        git config --global user.name 'Li'
+        git config --global user.email 'li@silica.codes'
+        git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+        git commit -am "Automated report"
+        git push
