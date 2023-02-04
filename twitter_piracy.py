@@ -18,7 +18,7 @@ REQUEST_HEADERS = {"User-Agent":"Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:102
           "Authorization": "Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA"}
 
     
-def login(username, password):
+def login(username, password, phoneNo):
     global REQUEST_HEADERS
     s.get("https://twitter.com/")
     
@@ -158,6 +158,21 @@ def login(username, password):
       ]
     })
     flowToken = r.json()["flow_token"]
+    
+    # check if im being asked for my phone number
+    if r.content.find(b"telephone") != -1:
+        r = s.post("https://api.twitter.com/1.1/onboarding/task.json", headers=REQUEST_HEADERS, json={
+          "flow_token": flowToken,
+          "subtask_inputs": [
+            {
+              "subtask_id": "LoginAcid",
+              "enter_text": {
+                "text": phoneNo,
+                "link": "next_link"
+              }
+            }
+          ]
+        }
     
     csrfToken = genCsrfToken()
     del REQUEST_HEADERS['x-guest-token']

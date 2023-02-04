@@ -8,6 +8,7 @@ from lxml import etree
 
 TWITTER_USERNAME = os.environ["TWITTER_USERNAME"]
 TWITTER_PASSWORD = os.environ["TWITTER_PASSWORD"]
+TWITTER_PHONE_NUMBER = os.environ["TWITTER_PHONE_NUMBER"]
 
 UPDATELIST_XML_URL = "http://fus01.ps5.update.playstation.net/update/ps5/official/tJMRE80IbXnE9YuG0jzTXgKEjIMoabr6/list/us/updatelist.xml"    
 
@@ -49,7 +50,7 @@ def checkForUpdate():
         
         print(text)
         
-        twitter_piracy.login(TWITTER_USERNAME, TWITTER_PASSWORD)
+        twitter_piracy.login(TWITTER_USERNAME, TWITTER_PASSWORD, TWITTER_PHONE_NUMBER)
         twitter_piracy.tweet(text)
         
         setLastPup(pupFile)
