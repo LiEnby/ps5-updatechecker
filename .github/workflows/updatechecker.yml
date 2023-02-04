@@ -1,5 +1,6 @@
 name: updatechecker
 on:
+  push:
   schedule:
     - cron: '*/5 * * * *'
 
@@ -16,12 +17,11 @@ jobs:
     - uses: actions/checkout@v2
       
     - name: check-update
-      continue-on-error: false
+      continue-on-error: true
       env: 
         TWITTER_USERNAME: ${{ secrets.TWITTER_USERNAME }}
         TWITTER_PASSWORD: ${{ secrets.TWITTER_PASSWORD }}
       run: |
-        pip3 install requests
         pip3 install lxml
         
         python3 ps5_updatecheck.py
