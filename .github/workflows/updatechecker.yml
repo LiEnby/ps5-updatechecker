@@ -2,7 +2,7 @@ name: updatechecker
 on:
   push:
   schedule:
-    - cron: '* */1 * * *'
+    - cron: '*/10 * * * *'
 
 defaults:
   run:
@@ -32,4 +32,4 @@ jobs:
         git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
         git commit -am "Automated report"
         git push
-        exit
+        exit 0
