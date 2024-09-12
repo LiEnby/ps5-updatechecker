@@ -1,1 +1,1 @@
-http://dus01.ps5.update.playstation.net/update/ps5/official/tJMRE80IbXnE9YuG0jzTXgKEjIMoabr6/image/2024_0718/sys_2db810ab78ea92aafef8c0202993a924274d53049c3de0e25f983188acc8b2a3/PS5UPDATE.PUP?dest=us
+http://dus01.ps5.update.playstation.net/update/ps5/official/tJMRE80IbXnE9YuG0jzTXgKEjIMoabr6/image/2024_0903/sys_47bc4bcd8323c0c5db14c333da84a1c572279df727e32cd421f478233c5b0c73/PS5UPDATE.PUP?dest=us
